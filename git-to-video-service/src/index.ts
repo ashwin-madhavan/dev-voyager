@@ -52,8 +52,8 @@ app.post('/process-git', (req, res) => {
 
   // Command to generate Gource visualization and save as .mp4
   const gourceCommand = `xvfb-run gource -1280x720 -o - ${inputFilePath} | ffmpeg -y -r 60 -f image2pipe -vcodec ppm -i - -vcodec libx264 -preset ultrafast -pix_fmt yuv420p -crf 18 -threads 0 -bf 0 ${outputFilePath}`;
-
-
+  // potentially can run the above without xvfb(a Docker install requirement) using:
+  // const gourceCommand = `xvfb-run gource -1280x720 -o - ${inputFilePath} | ffmpeg -y -r 60 -f image2pipe -vcodec ppm -i - -pix_fmt yuv420p ${outputFilePath}`;
 
   // Execute the command
   exec(gourceCommand, (error, stdout, stderr) => {
